@@ -13,6 +13,7 @@ defmodule Mix.Tasks.Polyn.New do
     create_priv_dirs()
     copy_readme()
     copy_tool_versions()
+    add_mix_file()
   end
 
   defp generate_new_mix_project do
@@ -33,23 +34,19 @@ defmodule Mix.Tasks.Polyn.New do
   end
 
   defp create_priv_dirs do
-    File.mkdir_p!(Path.join(admin_path(), "priv/polyn/schemas"))
-    File.mkdir_p!(Path.join(admin_path(), "priv/polyn/migrations"))
-    File.write!(Path.join(admin_path(), "priv/polyn/schemas/.gitkeep"), "")
-    File.write!(Path.join(admin_path(), "priv/polyn/migrations/.gitkeep"), "")
+    Mix.Generator.create_file("polyn_admin/priv/polyn/schemas/.gitkeep", "")
+    Mix.Generator.create_file("polyn_admin/priv/polyn/migrations/.gitkeep", "")
   end
 
   defp copy_readme do
-    File.copy!(
-      Path.join(File.cwd!(), "priv/templates/README.md"),
-      Path.join(admin_path(), "README.md")
-    )
+    Mix.Generator.copy_file("priv/templates/README.md", "polyn_admin/README.md", force: true)
   end
 
   defp copy_tool_versions do
-    File.copy!(
-      Path.join(File.cwd!(), ".tool-versions"),
-      Path.join(admin_path(), ".tool-versions")
-    )
+    Mix.Generator.copy_file(".tool-versions", "polyn_admin/.tool-versions", force: true)
+  end
+
+  defp add_mix_file do
+    Mix.Generator.copy_file("priv/templates/mix.exs", "polyn_admin/mix.exs", force: true)
   end
 end
