@@ -21,5 +21,10 @@ defmodule Mix.Tasks.Polyn.New do
       Path.join(File.cwd!(), "priv/templates/README.md"),
       Path.join(admin_path, "README.md")
     )
+
+    File.copy!(
+      Path.join(File.cwd!(), ".tool-versions"),
+      Path.join(admin_path, ".tool-versions")
+    )
   end
 end
