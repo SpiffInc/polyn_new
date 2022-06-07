@@ -1,3 +1,5 @@
+# Deprecated in favor of https://github.com/SpiffInc/events
+
 # PolynNew
 
 Generates a new Polyn Admin codebase to be used for maintaining NATS server schemas and migrations
